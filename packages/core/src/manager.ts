@@ -99,10 +99,9 @@ async function augmentConnectorUpdate(
 ): Promise<ConnectorUpdate<number>> {
   const provider = update.provider === undefined ? await connector.getProvider() : update.provider
   const [_chainId, _account] = (await Promise.all([
-    update.chainId === undefined ? connector.getChainId() : update.chainId,
+    (update.chainId === undefined || update.chainId ==='loading') ? connector.getChainId() : update.chainId,
     update.account === undefined ? connector.getAccount() : update.account
   ])) as [Required<ConnectorUpdate>['chainId'], Required<ConnectorUpdate>['account']]
-
   const chainId = normalizeChainId(_chainId)
   if (!!connector.supportedChainIds && !connector.supportedChainIds.includes(chainId)) {
     throw new UnsupportedChainIdError(chainId, connector.supportedChainIds)
@@ -179,7 +178,7 @@ export function useWeb3ReactManager(): Web3ReactManagerReturn {
 
       // updates are handled differently depending on whether the connector is active vs in an error state
       if (!error) {
-        const chainId = update.chainId === undefined ? undefined : normalizeChainId(update.chainId)
+        const chainId = (update.chainId === undefined || update.chainId==='loading') ? undefined : normalizeChainId(update.chainId)
         if (chainId !== undefined && !!connector.supportedChainIds && !connector.supportedChainIds.includes(chainId)) {
           const error = new UnsupportedChainIdError(chainId, connector.supportedChainIds)
           onError ? onError(error) : dispatch({ type: ActionType.ERROR, payload: { error } })
