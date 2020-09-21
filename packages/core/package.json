@@ -1,9 +1,9 @@
 {
-  "name": "@web3-react/core",
+  "name": "@goswap/core",
   "publishConfig": {
     "access": "public"
   },
-  "version": "6.1.1",
+  "version": "6.1.3",
   "description": "A simple, maximally extensible, dependency minimized framework for building modern Ethereum dApps",
   "keywords": [
     "react",
@@ -20,7 +20,7 @@
   "author": "Noah Zinsmeister <noahwz@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/NoahZinsmeister/web3-react.git"
+    "url": "git://github.com/goswap/web3-react.git"
   },
   "main": "dist/index.js",
   "module": "dist/core.esm.js",
