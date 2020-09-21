@@ -99,7 +99,7 @@ async function augmentConnectorUpdate(
 ): Promise<ConnectorUpdate<number>> {
   const provider = update.provider === undefined ? await connector.getProvider() : update.provider
   const [_chainId, _account] = (await Promise.all([
-    (update.chainId === undefined || update.chainId ==='loading' || update.chainId==='NaN') ? connector.getChainId() : update.chainId,
+    (update.chainId === undefined || update.chainId ==='loading' || update.chainId==='0xNaN') ? connector.getChainId() : update.chainId,
     update.account === undefined ? connector.getAccount() : update.account
   ])) as [Required<ConnectorUpdate>['chainId'], Required<ConnectorUpdate>['account']]
   const chainId = normalizeChainId(_chainId)
